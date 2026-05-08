@@ -29,4 +29,4 @@ RUN make -j$(nproc)
 RUN make install DESTDIR=/output
 
 FROM --platform=linux/386 i386/alpine:latest
-COPY --from=build /output /output
+COPY --from=build /output/lib/ /lib
