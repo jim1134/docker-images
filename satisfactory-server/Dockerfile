@@ -2,9 +2,8 @@ FROM steamcmd-alpine:latest
 
 COPY init.sh .
 
-RUN mkdir -p config/gamefiles && \
-    chown -R steam:steam .
+RUN chown -R steam:steam .
 
-RUN chmod +x /home/steam/init.sh
+RUN chmod +x init.sh
 USER steam
-ENTRYPOINT ["/home/steam/init.sh"]
+ENTRYPOINT ["./init.sh"]

@@ -1,15 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
-chmod +x steamcmd.sh && ./steamcmd.sh +quit
+mkdir -p /home/steam/config/gamefiles
+
+cd /home/steam
+
+chmod +x steamcmd.sh
 
 ./steamcmd.sh \
   +force_install_dir "/home/steam/config/gamefiles" \
   +login anonymous \
   +app_update 1690800 validate \
   +quit
-
-cd /home/steam/config/gamefiles
 
 SERVERGAMEPORT="7777"
 SERVERMESSAGINGPORT="8888"
@@ -40,10 +42,12 @@ ini_args=(
 
 args=$(printf '%q ' "${ini_args[@]}" "$@")
 
-chmod +x FactoryServer.sh && ./FactoryServer.sh \
+cd /home/steam/config/gamefiles
+chmod +x FactoryServer.sh
+./FactoryServer.sh \
   -Port="$SERVERGAMEPORT" \
   -ReliablePort="$SERVERMESSAGINGPORT" \
   -ExternalReliablePort="$SERVERMESSAGINGPORT" \
-  "$args" 
+  "$args"
 
 wait
