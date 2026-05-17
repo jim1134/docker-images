@@ -1,14 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
-mkdir -p /home/steam/config/gamefiles
-
-cd /home/steam
-
 chmod +x steamcmd.sh
 
 ./steamcmd.sh \
-  +force_install_dir "/home/steam/config/gamefiles" \
+  +force_install_dir "config/gamefiles" \
   +login anonymous \
   +app_update 1690800 validate \
   +quit
@@ -42,7 +38,7 @@ ini_args=(
 
 args=$(printf '%q ' "${ini_args[@]}" "$@")
 
-cd /home/steam/config/gamefiles
+cd config/gamefiles
 chmod +x FactoryServer.sh
 ./FactoryServer.sh \
   -Port="$SERVERGAMEPORT" \

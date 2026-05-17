@@ -1,9 +1,9 @@
 FROM steamcmd-alpine:latest
 
-COPY init.sh .
+COPY --chown=steam:steam init.sh .
 
-RUN chown -R steam:steam .
+USER steam
 
 RUN chmod +x init.sh
-USER steam
+
 ENTRYPOINT ["./init.sh"]
