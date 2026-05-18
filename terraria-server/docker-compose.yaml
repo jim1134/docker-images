@@ -1,0 +1,29 @@
+services:
+  init:
+    image: alpine
+    volumes:
+      - './terraria-server:/data'
+    command: chown -R 1000:1000 /data
+
+  terraria-server:
+    container_name: 'terraria-server'
+    hostname: 'terraria-server'
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+    user: 1000:1000
+    ports:
+      - '7777:7777/tcp'
+    volumes:
+      - './terraria-server:/server/worlds'
+    restart: unless-stopped
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
