@@ -1,0 +1,12 @@
+world=/server/worlds/world.wld
+worldname=world
+worldpath=/server/worlds
+autocreate=1
+seed=AwesomeSeed
+port=7777
+maxplayers=8
+difficulty=0
+language=en-US
+steam=1
+secure=1
+
