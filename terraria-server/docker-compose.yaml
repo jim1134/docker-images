@@ -1,10 +1,4 @@
 services:
-  init:
-    image: alpine
-    volumes:
-      - './terraria-server:/data'
-    command: chown -R 1000:1000 /data
-
   terraria-server:
     container_name: 'terraria-server'
     hostname: 'terraria-server'
@@ -18,12 +12,3 @@ services:
     volumes:
       - './terraria-server:/server/worlds'
     restart: unless-stopped
-    depends_on:
-      init:
-        condition: service_completed_successfully
-    deploy:
-      resources:
-        limits:
-          memory: 8G
-        reservations:
-          memory: 4G

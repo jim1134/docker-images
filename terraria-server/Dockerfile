@@ -21,8 +21,6 @@ RUN chmod +x TerrariaServer.bin.x86_64 && \
 
 USER terraria
 
-VOLUME ["/home/terraria/worlds"]
-
 EXPOSE 7777
 
 ENTRYPOINT ["bash", "-c", "./TerrariaServer.bin.x86_64 -config serverconfig.txt"]
