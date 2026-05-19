@@ -1,10 +1,4 @@
 services:
-  init:
-    image: alpine
-    volumes:
-      - './satisfactory-server:/data'
-    command: chown -R 1000:1000 /data
-
   satisfactory-server:
     container_name: 'satisfactory-server'
     hostname: 'satisfactory-server'
@@ -18,12 +12,3 @@ services:
     volumes:
       - './satisfactory-server:/home/steam/config'
     restart: unless-stopped
-    depends_on:
-      init:
-        condition: service_completed_successfully
-    deploy:
-      resources:
-        limits:
-          memory: 8G
-        reservations:
-          memory: 4G
