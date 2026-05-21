@@ -11,4 +11,16 @@ services:
       - '7777:7777/tcp'
     volumes:
       - './terraria-server:/server/worlds'
+    environment:
+      WORLDNAME: world
+      WORLDPATH: /server/worlds
+      WORLD: /server/worlds/world.wld
+      AUTOCREATE: 1
+      SEED: AwesomeSeed
+      PORT: 7777
+      MAXPLAYERS: 8
+      DIFFICULTY: 0
+      LANGUAGE: en-US
+      STEAM: 1
+      SECURE: 1
     restart: unless-stopped

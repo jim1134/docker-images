@@ -14,13 +14,13 @@ RUN apk add --no-cache bash && \
     adduser -D -h /home/terraria terraria
 
 COPY --from=build "/terraria" .
-COPY --chown=terraria:terraria serverconfig.txt .
+COPY --chown=terraria:terraria init.sh .
 
-RUN chmod +x TerrariaServer.bin.x86_64 && \
+RUN chmod +x TerrariaServer.bin.x86_64 init.sh && \
     mkdir -p worlds
 
 USER terraria
 
 EXPOSE 7777
 
-ENTRYPOINT ["bash", "-c", "./TerrariaServer.bin.x86_64 -config serverconfig.txt"]
+ENTRYPOINT ["./init.sh"]
