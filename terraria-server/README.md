@@ -24,7 +24,9 @@ From this directory, build the server image:
 docker build -t terraria-server .
 ```
 
-Create the volume directory as a non-root user on the host if you dont want the host directory to be made as root, then start the server:
+Create the volume directory as a non-root user on the host if you do not want the host directory to be made as root, then start the server:
+
+Replace the variables up to preference. All options can be found [here](https://terraria.wiki.gg/wiki/Server#Server_config_file)
 
 ```bash
 mkdir -p ./terraria-server
@@ -32,7 +34,18 @@ docker run -d -it \
   -p 7777:7777 \
   -v ./terraria-server:/home/terraria/worlds \
   --user 1000:1000 \
-  terraria-server
+  -e WORLDNAME=world \
+  -e WORLDPATH=/server/worlds \
+  -e WORLD=/server/worlds/world.wld \
+  -e AUTOCREATE=1 \
+  -e SEED=AwesomeSeed \
+  -e PORT=7777 \
+  -e MAXPLAYERS=8 \
+  -e DIFFICULTY=0 \
+  -e LANGUAGE=en-US \
+  -e STEAM=1 \
+  -e SECURE=1 \
+terraria-server
 ```
 
 Or, using Docker Compose:
