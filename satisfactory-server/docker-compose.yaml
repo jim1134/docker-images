@@ -11,4 +11,15 @@ services:
       - '8888:8888/tcp'
     volumes:
       - './satisfactory-server:/home/steam/config'
+    environment:
+      PORT: "7777"
+      RELIABLEPORT: "8888"
+      AUTOSAVENUM: "5"
+      MAXOBJECTS: "2162688"
+      MAXTICKRATE: "30"
+      SERVERSTREAMING: "0"
+      TIMEOUT: "30"
+      MAXPLAYERS: "4"
+      DISABLESEASONALEVENTS: "0"
+      MULTIHOME: "::"
     restart: unless-stopped
