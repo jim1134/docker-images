@@ -9,18 +9,19 @@ chmod +x steamcmd.sh
   +app_update 1690800 validate \
   +quit
 
-SERVERGAMEPORT="7777"
-SERVERMESSAGINGPORT="8888"
-AUTOSAVENUM="5"
-MAXOBJECTS="2162688"
-MAXTICKRATE="30"
-SERVERSTREAMING="0"
-TIMEOUT="30"
-MAXPLAYERS="4"
-DISABLESEASONALEVENTS="-DisableSeasonalEvents"
-MULTIHOME="::"
+# Set defaults if variables are unset or empty
+AUTOSAVENUM="${AUTOSAVENUM:-5}"
+MAXOBJECTS="${MAXOBJECTS:-2162688}"
+MAXPLAYERS="${MAXPLAYERS:-4}"
+MAXTICKRATE="${MAXTICKRATE:-30}"
+TIMEOUT="${TIMEOUT:-30}"
+SERVERSTREAMING="${SERVERSTREAMING:-true}"
+MULTIHOME="${MULTIHOME:-::}"
 
-ini_args=(
+args=(
+  "-Port=$PORT"
+  "-ReliablePort=$RELIABLEPORT"
+  "-ExternalReliablePort=$RELIABLEPORT"
   "-ini:Engine:[/Script/FactoryGame.FGSaveSession]:mNumRotatingAutosaves=$AUTOSAVENUM"
   "-ini:Engine:[/Script/Engine.GarbageCollectionSettings]:gc.MaxObjectsInEditor=$MAXOBJECTS"
   "-ini:Engine:[/Script/OnlineSubsystemUtils.IpNetDriver]:LanServerMaxTickRate=$MAXTICKRATE"
@@ -32,18 +33,14 @@ ini_args=(
   "-ini:Game:[/Script/Engine.GameSession]:InitialConnectTimeout=$TIMEOUT"
   "-ini:Game:[/Script/Engine.GameSession]:MaxPlayers=$MAXPLAYERS"
   "-ini:GameUserSettings:[/Script/Engine.GameSession]:MaxPlayers=$MAXPLAYERS"
-  "$DISABLESEASONALEVENTS"
-  "$MULTIHOME"
+  "${DISABLESEASONALEVENTS:+-DisableSeasonalEvents}"
+  "${MULTIHOME:+-multihome=$MULTIHOME}"
 )
 
-args=$(printf '%q ' "${ini_args[@]}" "$@")
-
 cd config/gamefiles
+
 chmod +x FactoryServer.sh
-./FactoryServer.sh \
-  -Port="$SERVERGAMEPORT" \
-  -ReliablePort="$SERVERMESSAGINGPORT" \
-  -ExternalReliablePort="$SERVERMESSAGINGPORT" \
-  "$args"
+
+./FactoryServer.sh "{args[@]}" "$@"
 
 wait

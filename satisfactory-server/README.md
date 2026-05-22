@@ -1,6 +1,6 @@
 # Satisfactory Dedicated Server
 
-An Alpine Linux–based Docker image for running a [Satisfactory](https://www.satisfactorygame.com/) dedicated server using steamcmd.
+An Alpine Linux–based Docker image for running a [Satisfactory](https://www.satisfactorygame.com/) dedicated server using steamcmd inspired by [Wolveix/satisfactory-server](https://github.com/wolveix/satisfactory-server/).
 
 ## Prerequisites
 
@@ -18,6 +18,20 @@ docker build -t alpine-glibc ../alpine-glibc
 docker build -t steamcmd-alpine ../steamcmd-alpine
 ```
 
+## Configuration
+| Parameter | Default | Function |
+|---|---|---|
+| `AUTOSAVENUM` | `5` | Number of rotating autosave files |
+| `DISABLESEASONALEVENTS` | `false` | Disable the FICSMAS event |
+| `MAXOBJECTS` | `2162688` | Set the object limit for your server |
+| `MAXPLAYERS` | `4` | Set the player limit for your server |
+| `MAXTICKRATE` | `30` | Set the maximum simulation tick rate |
+| `MULTIHOME` | `::` | Set the server's listening interface |
+| `PORT` | `7777` | Set the game's server port |
+| `RELIABLEPORT` | `8888` | Set the game's messaging port |
+| `SERVERSTREAMING` | `true` | Toggle asset streaming |
+| `TIMEOUT` | `30` | Set client timeout in seconds |
+
 ## Quick Start
 
 From this directory, build the server image:
@@ -30,14 +44,25 @@ Create the volume directory as a non-root user  on the host if you don't want it
 
 ```bash
 mkdir -p ./satisfactory-server
+
 docker run -d -it \
   --name satisfactory-server \
   --hostname satisfactory-server \
+  --user 1000:1000
   -p 7777:7777/tcp \
   -p 7777:7777/udp \
   -p 8888:8888/tcp \
   -v ./satisfactory-server:/home/steam/config \
-  --user 1000:1000 \
+  -e PORT="7777" \
+  -e RELIABLEPORT="8888" \
+  -e AUTOSAVENUM="5" \
+  -e MAXOBJECTS="2162688" \
+  -e MAXTICKRATE="30" \
+  -e SERVERSTREAMING="0" \
+  -e TIMEOUT="30" \
+  -e MAXPLAYERS="4" \
+  -e DISABLESEASONALEVENTS="0" \
+  -e MULTIHOME="::" \
   --restart unless-stopped \
   satisfactory-server
 ```
