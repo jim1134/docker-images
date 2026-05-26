@@ -8,6 +8,28 @@ RUN apk add curl libarchive-tools && \
 
 FROM alpine-glibc:latest
 
+ENV CONFIG="" \
+    WORLD="/server/worlds/world.wld" \
+    WORLDNAME="world" \
+    WORLDPATH="/server/worlds" \
+    SEED="AwesomeSeed" \
+    PORT="7777" \
+    MAXPLAYERS="8" \
+    AUTOCREATE="1" \
+    DIFFICULTY="0" \
+    SECURE="1" \
+    STEAM="1" \
+    LANGUAGE="ENTRYPOINTn-US" \
+    PASSWORD="" \
+    MOTD="" \
+    BANLIST="" \
+    NOUPNP="" \
+    LOBBY="" \
+    IP="" \
+    FORCEPRIORITY="" \
+    DISABLEANNOUNCEMENTBOX="" \
+    ANNOUNCEMENTBOXRANGE=""
+
 WORKDIR /home/terraria
 
 RUN apk add --no-cache bash && \
