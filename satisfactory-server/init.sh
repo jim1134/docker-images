@@ -9,15 +9,6 @@ chmod +x steamcmd.sh
   +app_update 1690800 validate \
   +quit
 
-# Set defaults if variables are unset or empty
-AUTOSAVENUM="${AUTOSAVENUM:-5}"
-MAXOBJECTS="${MAXOBJECTS:-2162688}"
-MAXPLAYERS="${MAXPLAYERS:-4}"
-MAXTICKRATE="${MAXTICKRATE:-30}"
-TIMEOUT="${TIMEOUT:-30}"
-SERVERSTREAMING="${SERVERSTREAMING:-true}"
-MULTIHOME="${MULTIHOME:-::}"
-
 args=(
   "-Port=$PORT"
   "-ReliablePort=$RELIABLEPORT"
@@ -41,6 +32,6 @@ cd config/gamefiles
 
 chmod +x FactoryServer.sh
 
-./FactoryServer.sh "{args[@]}" "$@"
+./FactoryServer.sh "${args[@]}" "$@"
 
 wait
